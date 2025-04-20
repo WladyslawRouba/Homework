@@ -19,12 +19,13 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
+    "dev": "vite",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "pnpm run build",
-      "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -45,7 +46,8 @@
     ]
   },
   "devDependencies": {
-    "prettier": "3.0.0"
+    "prettier": "3.0.0",
+    "vite": "^6.3.2"
   },
   "packageManager": "pnpm@10.6.4+sha512.da3d715bfd22a9a105e6e8088cfc7826699332ded60c423b14ec613a185f1602206702ff0fe4c438cb15c979081ce4cb02568e364b15174503a63c7a8e2a5f6c"
 }
