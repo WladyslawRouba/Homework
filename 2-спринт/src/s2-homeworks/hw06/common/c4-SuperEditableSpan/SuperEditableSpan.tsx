@@ -65,7 +65,7 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
         <>
             {editMode ? (
                 <SuperInputText
-                    id={restProps.id}
+                    id="hw6-spanable-input"
                     autoFocus={autoFocus || true}
                     onBlur={onBlurCallback}
                     onEnter={onEnterCallback}
@@ -80,7 +80,7 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
                         alt={'edit'}
                     />
                     <span
-                        id={spanProps?.id}
+                        id="hw6-editable-span"
                         onDoubleClick={onDoubleClickCallBack}
                         className={spanClassName}
                         {...restSpanProps}
