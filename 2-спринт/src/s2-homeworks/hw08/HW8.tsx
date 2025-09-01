@@ -1,15 +1,9 @@
-import React, {useState} from 'react'
-import {homeWorkReducer} from './bll/homeWorkReducer'
+import React, { useState } from 'react'
+import { homeWorkReducer } from './bll/homeWorkReducer'
 import s from './HW8.module.css'
 import s2 from '../../s1-main/App.module.css'
 import SuperButton from '../hw04/common/c2-SuperButton/SuperButton'
 import User from './User'
-
-/*
-* 1 - дописать типы и логику (сортировка по имени, фильтрация по совершеннолетию) homeWorkReducer, проверить тестом
-* 2 - дописать компоненту User
-* 3 - сделать стили в соответствии с дизайном
-* */
 
 export type UserType = {
     _id: number
@@ -18,10 +12,9 @@ export type UserType = {
 }
 
 const initialPeople: UserType[] = [
-    // студенты могут поменять имя/возраст/количество объектов, _id должны быть целочисленные
-    {_id: 0, name: 'Кот', age: 3},
+    {_id: 0, name: 'Кот', age: 16},
     {_id: 1, name: 'Александр', age: 66},
-    {_id: 2, name: 'Коля', age: 16},
+    {_id: 2, name: 'Коля', age: 32},
     {_id: 3, name: 'Виктор', age: 44},
     {_id: 4, name: 'Дмитрий', age: 40},
     {_id: 5, name: 'Ирина', age: 55},
@@ -29,32 +22,33 @@ const initialPeople: UserType[] = [
 
 const HW8 = () => {
     const [people, setPeople] = useState<UserType[]>(initialPeople)
-    const [currentSort, setCurrentSort] = useState('')
+    const [currentSort, setCurrentSort] = useState<'up' | 'down' | '18' | ''>('') // ИСПРАВЛЕНО: строгая типизация
 
-    const finalPeople = people.map((u: UserType) => <User key={u._id} u={u}/>)
+    // ИСПРАВЛЕНО: проп u → user
+    const finalPeople = people.map(user => <User key={user._id + currentSort} user={user} />)
+
+
+
 
     const sortUp = () => {
-        setPeople(
-            homeWorkReducer(people, {type: 'sort', payload: 'up'})
-        ) // в алфавитном порядке a.name > b.name
-        setCurrentSort('up')
+        setPeople([]) // очистка
+        setTimeout(() => {
+            setPeople(homeWorkReducer(initialPeople, { type: 'sort', payload: 'up' }))
+            setCurrentSort('up')
+        }, 0)
     }
-
     const sortDown = () => {
-        setPeople(
-            homeWorkReducer(people, {type: 'sort', payload: 'down'})
-        ) // в обратном порядке a.name < b.name}
+        setPeople(homeWorkReducer(initialPeople, { type: 'sort', payload: 'down' }))
         setCurrentSort('down')
     }
+
     const check18 = () => {
-        setPeople(
-            homeWorkReducer(people, {type: 'check', payload: 18})
-        ) // совершеннолетние
+        setPeople(homeWorkReducer(initialPeople, { type: 'check', payload: 18 }))
         setCurrentSort('18')
     }
 
     return (
-        <div id={'hw3'}>
+        <div id={'hw8'}>
             <div className={s2.hwTitle}>Homework #8</div>
             <div className={s2.hw}>
                 <div className={s.container}>
@@ -85,11 +79,10 @@ const HW8 = () => {
                     <table id={'hw8-users'} className={s.users}>
                         <thead className={s.thead}>
                         <tr>
-                            <td className={s.nameCol}>Name</td>
-                            <td className={s.ageCol}>Age</td>
+                            <th className={s.nameCol}>Name</th> {/* ИСПРАВЛЕНО: td → th */}
+                            <th className={s.ageCol}>Age</th>  {/* ИСПРАВЛЕНО: td → th */}
                         </tr>
                         </thead>
-
                         <tbody>{finalPeople}</tbody>
                     </table>
                 </div>
