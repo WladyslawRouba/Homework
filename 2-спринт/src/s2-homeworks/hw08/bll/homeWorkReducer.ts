@@ -17,7 +17,7 @@ return action.payload === 'up'? newState : newState.reverse()
         }
         case 'check': {
 
-            return state.filter(u => u.age >= action.payload) // need to fix
+            return [...state].filter(u => u.age >= action.payload)// need to fix
         }
         default:
             return state
